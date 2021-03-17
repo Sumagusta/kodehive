@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Beranda</title>
+
+</head>
+
+<body>
+
+	<h2>ADD MAHASISWA</h2>
+
+	<div>
+		<ul>
+			<li>Username : <a th:text="${userLempar}"></a></li>
+			<li><a th:href="@{/}">Logout</a></li>
+		</ul>
+	</div>
+
+	<hr>
+
+	<form action="#">
+		<table>
+			<tr>
+				<td>Kode Mahasiswa</td>
+				<td><input type="text" placeholder="Kode Mahasiswa"></td>
+			</tr>
+			<tr>
+				<td>Nama Mahasiswa</td>
+				<td><input type="text" placeholder="Nama Mahasiswa"></td>
+			</tr>
+			<tr>
+				<td>Gender</td>
+				<td><input type="radio" name="jk" value="pria">Pria
+					<input type="radio" name="jk" value="wanita">Wanita</td>
+			</tr>
+			<tr>
+				<td>Alamat</td>
+				<td><textarea rows="3" cols="21" placeholder="Masukkan ALamat"></textarea></td>
+			</tr>
+			<tr>
+				<td>Status</td>
+				<td>
+					<select>
+						<optgroup label="Pilih Status">
+							<option value="Tidak Ada"></option>
+							<option value="Menikah">Menikah</option>
+							<option value="Belum Kawin">Belum Kawin</option>
+						</optgroup>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit">&nbsp;&nbsp;<input type="reset"></td>
+			</tr>
+
+		</table>
+	</form>
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Beranda</title>
+
+</head>
+
+<body>
+
+	<form id="form-add-mahasiswa">
+		<div class="form-group">
+			<label class="col-form-label">Kode Mahasiswa</label> <input
+				type="text" class="form-control" name="kodeMahasiswa">
+		</div>
+		<div class="form-group">
+			<label class="col-form-label">Nama Mahasiswa</label> <input
+				type="text" class="form-control" name="namaMahasiswa" />
+		</div>
+		<div class="form-group">
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="radio" name="jk"
+					id="inlineRadio1" value="Pria"> <label
+					class="form-check-label" for="inlineRadio1">Pria</label> &nbsp; <input
+					class="form-check-input" type="radio" name="jk" id="inlineRadio2"
+					value="Wanita"> <label class="form-check-label"
+					for="inlineRadio2">Wanita</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="jurusan1">jurusan</label> <select
+				class="form-control" id="jurusanId" name="jurusan">
+				<optgroup label="Pilih Jurusan">
+					<option value="Belum Ambil"></option>
+					<option th:each="jurusanModel:${jurusanModelList}" th:value="${jurusanModel.kodeJurusan}" 
+						th:text="${jurusanModel.namaJurusan}"></option>
+					
+				</optgroup>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="alamat-option">Alamat</label>
+			<textarea class="form-control" id="alamatMhs" rows="3" name="alamat" autocomplete="name"></textarea>
+		</div>
+		<div class="form-group">
+			<label for="exampleFormControlSelect1">Status</label> <select
+				class="form-control" id="statusId" name="status">
+				<optgroup label="Pilih Status">
+					<option value="Tidak Ada"></option>
+					<option value="Aktif">Aktif</option>
+					<option value="Non-Aktif">Non-Aktif</option>
+				</optgroup>
+			</select>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+	</form>
+
+</body>
+
+</html>

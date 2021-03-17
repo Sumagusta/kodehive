@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>List</title>
+</head>
+<body>
+	<tr th:each="mahasiswa:${bingkisanBacaData}">
+		<td><a th:text="${mahasiswa.kd_mhs}"></a></td>
+		<td><a th:text="${mahasiswa.nm_mhs}"></a></td>
+		<td><a th:text="${mahasiswa.jurusanModel.namaJurusan}"></a></td>
+		<td><a th:text="${mahasiswa.jk}"></a></td>
+		<td><a th:text="${mahasiswa.alamat}"></a></td>
+		<td><a th:text="${mahasiswa.status}"></a></td>
+
+		<td><button id="btn-edit" type="button" class="btn btn-success"
+				name="update-btn" th:value="${mahasiswa.kd_mhs}">Update</button></td>
+				
+		<td><button id="btn-hapus" type="button"
+				th:value="${mahasiswa.kd_mhs}" class="btn btn-danger">Hapus</button></td>
+	</tr>
+</body>
+</body>
+</html>

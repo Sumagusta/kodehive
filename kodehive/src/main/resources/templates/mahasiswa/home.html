@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Home</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+	<div>
+		<h1>WELCOME TO KODEHIVE ACADEMY</h1>
+		<div>
+			<button id="btn-add" type="button">Add Data</button>
+		</div>
+		<br />
+		<table border="1" class="table table-bordered">
+			<thead>
+				<tr>
+					<td>KODE</td>
+					<td>MAHASISWA</td>
+					<td>JURUSAN</td>
+					<td>GENDER</td>
+					<td>ALAMAT</td>
+					<td>STATUS</td>
+					<td>ACTION</td>
+				</tr>
+			</thead>
+			<tbody id="list-mahasiswa">
+				<!-- ambil data dari list.html -->
+				<!-- nantinya data mahasiswa yang baru diinput akan muncul disini -->
+			</tbody>
+		</table>
+		<!-- modal 2 -->
+		<div class="modal fade" id="modal-add-mahasiswa" tabindex="-1"
+			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title" id="AddMahasiswa">Add/Edit Mahasiswa</h2>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Modal body text goes here.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- untuk pop up hapus data -->
+		<div id="modal-mahasiswa-hapus" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Pop-up Delete Mahasiswa</h4>
+					</div>
+					<div class="modal-body">
+						<p>Some text in the modal.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script type="text/javascript">
+refreshData();
+
+//Ajax list
+function refreshData(){
+	$.ajax({
+		url : '/kodehive/mahasiswa/list',
+		type : 'get',
+		dataType : 'html',
+		success : function(result){
+			$('#list-mahasiswa').html(result);
+		}
+	});
+}
+	
+	//Ajax Pop-up tambah data
+	$('#btn-add').click(function () {
+		var kd_mhs = $(this).val();
+		$.ajax({
+			url: '/kodehive/mahasiswa/add',
+			type: 'get',
+			dataType: 'html',
+			data: { kd_mhs },
+			success: function (result) {
+				$('#modal-add-mahasiswa').modal('show');
+				$('#modal-add-mahasiswa').find('.modal-body').html(result);
+			}
+		});
+	});
+	
+	//Ajax Create
+	$('#modal-add-mahasiswa').on('submit', '#form-add-mahasiswa', function() {
+		$.ajax({
+			url: '/kodehive/mahasiswa/create',
+			type: 'post',
+			data: $(this).serialize(),
+			success: function (result) {
+				alert("data berhasil diinputkan")
+				$('#modal-add-mahasiswa').modal('hide');
+				refreshData();
+			}
+		});
+		return false;
+	});
+	
+	//Ajax Pop-up edit data
+	$('#list-mahasiswa').on('click','#btn-edit', function () {
+		var kd_mhs = $(this).val();
+		$.ajax({
+			url: '/kodehive/mahasiswa/edit',
+			type: 'get',
+			dataType: 'html',
+			data: {kd_mhs},
+			success: function (result) {
+				$('#modal-add-mahasiswa').modal('show');
+				$('#modal-add-mahasiswa').find('.modal-body').html(result);
+			}
+		});
+	});
+	
+	//Ajax Update
+	$('#modal-add-mahasiswa').on('submit', '#form-edit-mahasiswa', function() {
+		$.ajax({
+			url: '/kodehive/mahasiswa/update',
+			type: 'post',
+			data: $(this).serialize(),
+			success: function (result) {
+				alert("data berhasil diupdate")
+				$('#modal-add-mahasiswa').modal('hide');
+				refreshData();
+			}
+		});
+		return false;
+	});
+	
+	//Ajax Pop-up hapus data
+	$('#list-mahasiswa').on('click','#btn-hapus', function () {
+		var kd_mhs = $(this).val();
+		$.ajax({
+			url: '/kodehive/mahasiswa/remove',
+			type: 'get',
+			dataType: 'html',
+			data: {kd_mhs, kd_mhs},
+			success: function (result) {
+				$('#modal-mahasiswa-hapus').modal('show');
+				$('#modal-mahasiswa-hapus').find('.modal-body').html(result);
+			}
+		});
+	});
+	
+	//Ajax Delete
+	$('#list-mahasiswa').on('submit', '#form-mahasiswa-delete', function(){
+		var kd_mhs = $(this).val();
+		$.ajax({
+			url: '/kodehive/mahasiswa/delete',
+			type: 'get',
+			data: $(this).serialize(),
+			success: function(result){
+				alert("data berhasil dihapus!")
+				$('#modal-mahasiswa-hapus').modal('hide');
+				refreshData();
+			}
+		});
+			//return false;
+	});
+	
+</script>
+
+</html>
