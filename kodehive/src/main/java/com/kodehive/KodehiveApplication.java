@@ -8,6 +8,8 @@ public class KodehiveApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(KodehiveApplication.class, args);
+		
+		System.out.println("Aplikasi ini sedang berjalan ..");
 	}
 
 }
