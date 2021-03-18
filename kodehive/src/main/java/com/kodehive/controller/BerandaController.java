@@ -21,6 +21,7 @@ public class BerandaController {
 		return html;
 	}
 	
+	
 	@RequestMapping("/login/action")
 	public String tujuan(HttpServletRequest request, Model model) {
 		String mintaUser = request.getParameter("username"); 				// data dari nilai yang ada di username diberikan ke mintaUser
