@@ -32,7 +32,7 @@
 			<label for="jurusan1">jurusan</label> <select
 				class="form-control" id="jurusanId" name="jurusan">
 				<optgroup label="Pilih Jurusan">
-					<option value="Belum Ambil"></option>
+				<option th:value=""></option>
 					<option th:each="jurusanModel:${jurusanModelList}" th:value="${jurusanModel.kodeJurusan}" 
 						th:text="${jurusanModel.namaJurusan}"></option>
 					

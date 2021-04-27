@@ -32,6 +32,17 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label for="jurusanId">jurusan</label> <select
+				class="form-control" id="jurusanId" name="jurusan">
+				<optgroup label="Pilih Jurusan">
+					<option th:if="(${bingkisanEdit.kodeJurusan == null})" value="" selected>Belum</option>
+					<option th:each="jurusanModel:${jurusanModelList}" th:value="${jurusanModel.kodeJurusan}" 
+						th:text="${jurusanModel.namaJurusan}" th:selected="${bingkisanEdit.kodeJurusan}"></option>
+					
+				</optgroup>
+			</select>
+		</div>
+		<div class="form-group">
 			<label for="alamat-option">Alamat</label>
 			<textarea class="form-control" id="alamatMhs" rows="3" name="alamat"
 				th:text="${bingkisanEdit.alamat}"></textarea>

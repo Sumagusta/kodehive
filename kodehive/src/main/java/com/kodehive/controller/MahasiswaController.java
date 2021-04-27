@@ -83,6 +83,7 @@ public class MahasiswaController {
 
 		MahasiswaModel mahasiswaModel = new MahasiswaModel();
 		mahasiswaModel = this.mahasiswaService.cariPrimaryKey(kodeMahasiswa);
+		this.bacaJurusan(model);
 
 		model.addAttribute("bingkisanEdit", mahasiswaModel);
 
