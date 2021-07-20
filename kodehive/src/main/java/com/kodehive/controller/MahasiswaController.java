@@ -13,9 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kodehive.model.JurusanModel;
+import com.kodehive.model.MahasiswaProfileModel;
 import com.kodehive.model.MahasiswaModel;
 import com.kodehive.repository.MahasiswaRepository;
 import com.kodehive.service.JurusanService;
+import com.kodehive.service.MahasiswaProfileService;
 import com.kodehive.service.MahasiswaService;
 
 @Controller
@@ -26,6 +28,9 @@ public class MahasiswaController {
 	
 	@Autowired
 	private JurusanService jurusanService;
+	
+	@Autowired
+	private MahasiswaProfileService profileService;
 
 	@RequestMapping("/mahasiswa")
 	public String home() {
@@ -36,8 +41,9 @@ public class MahasiswaController {
 	@RequestMapping("/mahasiswa/add")
 	public String addMahasiswa(Model model) {
 		this.bacaJurusan(model);
+		this.bacaProfile(model);
 		
-		String html = "/mahasiswa/add";
+		String html = "mahasiswa/add";
 		return html;
 	}
 
@@ -149,6 +155,14 @@ public class MahasiswaController {
 		jurusanModelList = this.jurusanService.readJurusan();
 		
 		model.addAttribute("jurusanModelList", jurusanModelList);
+	}
+	
+	@RequestMapping("/mahasiswa/profile")
+	public void bacaProfile(Model model) {
+		List<MahasiswaProfileModel> profileModelList = new ArrayList<>();
+		profileModelList = this.profileService.searchProfileAll();
+		
+		model.addAttribute("profileModelList", profileModelList);
 	}
 	
 	

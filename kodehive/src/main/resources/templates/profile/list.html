@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>List</title>
+</head>
+<body>
+	<tr th:each="profile:${mahasiswaProfileModelList}">
+		<td><a th:text="${profile.idProfile}"></a></td>
+		<td><a th:text="${profile.mahasiswaModel.nm_mhs}"></a></td>
+		<td><a th:text="${profile.email}"></a></td>
+		<td><a th:text="${profile.nomorHP}"></a></td>
+
+		<td><button id="btn-edit" type="button" class="btn btn-success"
+				name="update-btn" th:value="${profile.idProfile}">Update</button></td>
+				
+		<td><button id="btn-hapus" type="button"
+				th:value="${profile.idProfile}" class="btn btn-danger">Hapus</button></td>
+	</tr>
+</body>
+</body>
+</html>

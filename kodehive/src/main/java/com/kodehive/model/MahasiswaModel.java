@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -34,6 +35,15 @@ public class MahasiswaModel {
 	@JoinColumn(name="KODE_JURUSAN",nullable=true, insertable=false, updatable=false)
 	private JurusanModel jurusanModel;
 	
+	@ManyToOne
+	private MahasiswaProfileModel mahasiswaProfileModel;
+	
+	public MahasiswaProfileModel getMahasiswaProfileModel() {
+		return mahasiswaProfileModel;
+	}
+	public void setMahasiswaProfileModel(MahasiswaProfileModel mahasiswaProfileModel) {
+		this.mahasiswaProfileModel = mahasiswaProfileModel;
+	}
 	public String getKodeJurusan() {
 		return kodeJurusan;
 	}

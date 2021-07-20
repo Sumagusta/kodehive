@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Beranda</title>
+
+</head>
+
+<body>
+
+	<form id="form-add-mahasiswa">
+		<div class="form-group">
+			<label class="col-form-label">Kode Profile</label> <input
+				type="text" class="form-control" name="idProfile">
+		</div>
+		<div class="form-group">
+			<label for="jurusan1">Nama Mahasiswa</label> <select
+				class="form-control" id="jurusanId" name="namaMahasiswa">
+				<optgroup label="Pilih Jurusan">
+				<option value=""></option>
+					<option th:each="mahasiswaModel:${mahasiswaModelList}" th:value="${mahasiswaModel.kd_mhs}" 
+						th:text="${mahasiswaModel.nm_mhs}"></option>
+				</optgroup>
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="col-form-label">Nomor HP</label> <input
+				type="text" class="form-control" name="nomorHp">
+		</div>
+		<div class="form-group">
+			<label class="col-form-label">Email</label> <input
+				type="text" class="form-control" name="email">
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+	</form>
+
+</body>
+
+</html>

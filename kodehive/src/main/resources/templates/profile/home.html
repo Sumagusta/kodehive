@@ -30,10 +30,8 @@
 				<tr>
 					<td>KODE</td>
 					<td>MAHASISWA</td>
-					<td>JURUSAN</td>
-					<td>GENDER</td>
-					<td>ALAMAT</td>
-					<td>STATUS</td>
+					<td>EMAIL</td>
+					<td>NO HP</td>
 					<td>ACTION</td>
 				</tr>
 			</thead>
@@ -82,7 +80,7 @@ refreshData();
 //Ajax list
 function refreshData(){
 	$.ajax({
-		url : '/kodehive/mahasiswa/list',
+		url : '/kodehive/profile/list',
 		type : 'get',
 		dataType : 'html',
 		success : function(result){
@@ -93,12 +91,12 @@ function refreshData(){
 	
 	//Ajax Pop-up tambah data
 	$('#btn-add').click(function () {
-		//var kd_mhs = $(this).val();
+		var idProfile = $(this).val();
 		$.ajax({
-			url: '/kodehive/mahasiswa/add',
+			url: '/kodehive/profile/add',
 			type: 'get',
 			dataType: 'html',
-			//data: { kd_mhs },
+			data: { idProfile },
 			success: function (result) {
 				$('#modal-add-mahasiswa').modal('show');
 				$('#modal-add-mahasiswa').find('.modal-body').html(result);
@@ -109,7 +107,7 @@ function refreshData(){
 	//Ajax Create
 	$('#modal-add-mahasiswa').on('submit', '#form-add-mahasiswa', function() {
 		$.ajax({
-			url: '/kodehive/mahasiswa/create',
+			url: '/kodehive/profile/create',
 			type: 'post',
 			data: $(this).serialize(),
 			success: function (result) {
@@ -119,67 +117,6 @@ function refreshData(){
 			}
 		});
 		return false;
-	});
-	
-	//Ajax Pop-up edit data
-	$('#list-mahasiswa').on('click','#btn-edit', function () {
-		var kd_mhs = $(this).val();
-		$.ajax({
-			url: '/kodehive/mahasiswa/edit',
-			type: 'get',
-			dataType: 'html',
-			data: {kd_mhs},
-			success: function (result) {
-				$('#modal-add-mahasiswa').modal('show');
-				$('#modal-add-mahasiswa').find('.modal-body').html(result);
-			}
-		});
-	});
-	
-	//Ajax Update
-	$('#modal-add-mahasiswa').on('submit', '#form-edit-mahasiswa', function() {
-		$.ajax({
-			url: '/kodehive/mahasiswa/update',
-			type: 'post',
-			data: $(this).serialize(),
-			success: function (result) {
-				alert("data berhasil diupdate")
-				$('#modal-add-mahasiswa').modal('hide');
-				refreshData();
-			}
-		});
-		return false;
-	});
-	
-	//Ajax Pop-up hapus data
-	$('#list-mahasiswa').on('click','#btn-hapus', function () {
-		var kd_mhs = $(this).val();
-		$.ajax({
-			url: '/kodehive/mahasiswa/remove',
-			type: 'get',
-			dataType: 'html',
-			data: {kd_mhs, kd_mhs},
-			success: function (result) {
-				$('#modal-mahasiswa-hapus').modal('show');
-				$('#modal-mahasiswa-hapus').find('.modal-body').html(result);
-			}
-		});
-	});
-	
-	//Ajax Delete
-	$('#list-mahasiswa').on('submit', '#form-mahasiswa-delete', function(){
-		var kd_mhs = $(this).val();
-		$.ajax({
-			url: '/kodehive/mahasiswa/delete',
-			type: 'get',
-			data: $(this).serialize(),
-			success: function(result){
-				alert("data berhasil dihapus!")
-				$('#modal-mahasiswa-hapus').modal('hide');
-				refreshData();
-			}
-		});
-			//return false;
 	});
 	
 </script>
