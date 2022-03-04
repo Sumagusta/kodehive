@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <meta charset="ISO-8859-1">
@@ -42,6 +42,31 @@
 				<!-- nantinya data mahasiswa yang baru diinput akan muncul disini -->
 			</tbody>
 		</table>
+		
+		<!-- Pagination -->
+		<div th:if = "${totalPages > 1}">
+			<div class="row col-sm-10">
+				<div class="col-sm-2">
+					Total Rows : [[${totalItems}]]
+				</div>
+				<div class="col-sm-1">
+					<span th:each = "items : ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != items}" th:href="@{'/mahasiswa/page/' + ${items}}">[[${items}]]</a>
+						<span th:unless = "${currentPage != items}">[[${items}]]</span> &nbsp; &nbsp;
+					</span>
+				</div>
+				<div class="col-sm-1">
+					<a th:if="${currentPage < totalPages}" th:href="@{'/mahasiswa/page/' + ${currentPage + 1}}">Next</a>
+						<span th:unless = "${currentPage < totalPages}">Next</span>
+				</div>
+				<div class="col-sm-1">
+					<a th:if="${currentPage < totalPages}" th:href="@{'/mahasiswa/page/' + ${totalPages}}">Last</a>
+						<span th:unless = "${currentPage < totalPages}">Last</span>
+				</div>
+			</div>
+		</div>
+		<!-- end pagination -->
+		
 		<!-- modal 2 -->
 		<div class="modal fade" id="modal-add-mahasiswa" tabindex="-1"
 			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -107,6 +132,7 @@ function refreshData(){
 	});
 	
 	//Ajax Create
+	
 	$('#modal-add-mahasiswa').on('submit', '#form-add-mahasiswa', function() {
 		$.ajax({
 			url: '/kodehive/mahasiswa/create',
@@ -171,12 +197,12 @@ function refreshData(){
 		var kd_mhs = $(this).val();
 		$.ajax({
 			url: '/kodehive/mahasiswa/delete',
-			type: 'get',
+			type: 'post',
 			data: $(this).serialize(),
 			success: function(result){
 				alert("data berhasil dihapus!")
 				$('#modal-mahasiswa-hapus').modal('hide');
-				refreshData();
+				//refreshData();
 			}
 		});
 			//return false;

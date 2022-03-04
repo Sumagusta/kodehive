@@ -7,9 +7,11 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.util.Optionals;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kodehive.model.JurusanModel;
@@ -33,9 +35,10 @@ public class MahasiswaController {
 	private MahasiswaProfileService profileService;
 
 	@RequestMapping("/mahasiswa")
-	public String home() {
-		String html = "/mahasiswa/home";
-		return html;
+	public String home(Model model) {
+		 findPaginated(1, model);
+		 return "mahasiswa/home";
+		
 	}
 
 	@RequestMapping("/mahasiswa/add")
@@ -143,7 +146,7 @@ public class MahasiswaController {
 		mahasiswaModel = this.mahasiswaService.cariPrimaryKey(kodeMahasiswa);
 		
 		this.mahasiswaService.delete(mahasiswaModel);
-		this.bacaData(model);
+		//this.bacaData(model);
 		
 		String html = "/mahasiswa/home";
 		return html;
@@ -163,6 +166,21 @@ public class MahasiswaController {
 		profileModelList = this.profileService.searchProfileAll();
 		
 		model.addAttribute("profileModelList", profileModelList);
+	}
+	
+	@RequestMapping("/mahasiswa/page/{pageNo}")
+	public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
+		int pageSize = 5;
+		
+		Page<MahasiswaModel> page = mahasiswaService.findPaginated(pageNo, pageSize);
+		List<MahasiswaModel> mahasiswaModelList = page.getContent();
+	
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("bingkisanBacaData", mahasiswaModelList);
+		
+		return "/mahasiswa/list";
 	}
 	
 	

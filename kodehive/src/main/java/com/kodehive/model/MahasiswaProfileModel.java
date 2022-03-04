@@ -60,6 +60,13 @@ public class MahasiswaProfileModel {
 		this.email = email;
 	}
 	
+	// Buat Model Skripsi
+	// Auto Incerent PK
+	
+	// Int id
+	// String nama_skripsi
+	// int tahun
+	// int nilai
 	
 	
 }
